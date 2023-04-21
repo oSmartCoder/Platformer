@@ -38,19 +38,9 @@ class Game:
         self.collision_sprites = pygame.sprite.Group() # Sprites that have collision with active sprites
         self.interactive_sprites = InteractiveGroup(self.sprite_filters['interactive']) # Sprites that interact with active sprites
 
-        # Image Imports
-        self.bg = pygame.transform.scale(pygame.image.load('Platformer/assets/backgrounds/bg.png'), (1280, WIN_Y))
-        self.coin_image = pygame.transform.scale(pygame.image.load('Platformer/assets/tiles/%s.png' % self.sprite_filters['interactive']['coin'][0]), (TILE_SIZE, TILE_SIZE))
-        
-        # Sounds
-        self.music = pygame.mixer.Sound('Platformer/assets/sounds/music.mp3')
-        self.music.play(loops=-1, fade_ms=2)
+        self.import_game_assets()
 
-        # Load world
-        with open(f'Platformer/level data/level{self.level}_data', 'rb') as file:
-            self.world_data = pickle.load(file)
-        self.load_world(self.world_data)
-    
+        self.load_world()
     
     def display_text(self, text: str, pos: Tuple[int, int], font_size: int=40, colour: str='white') -> None:
         """
@@ -60,9 +50,20 @@ class Game:
         font = pygame.font.Font('Platformer/assets/fonts/font.ttf', font_size)
         image = font.render(text, True, colour)
         self.win.blit(image, pos)
+    
+    def import_game_assets(self):
+        self.bg = pygame.transform.scale(pygame.image.load('Platformer/assets/backgrounds/bg.png'), (1280, WIN_Y))
+        self.coin_image = pygame.transform.scale(pygame.image.load('Platformer/assets/tiles/%s.png' % self.sprite_filters['interactive']['coin'][0]), (TILE_SIZE, TILE_SIZE))
+        
+        self.music = pygame.mixer.Sound('Platformer/assets/sounds/music.mp3')
+        self.music.play(loops=-1, fade_ms=2)
 
-    def load_world(self, world_data):
-        for y, row in enumerate(world_data):
+
+    def load_world(self):
+        with open(f'Platformer/level data/level{self.level}_data', 'rb') as file:
+            self.world_data = pickle.load(file)
+
+        for y, row in enumerate(self.world_data):
             for x, value in enumerate(row):
                 if value != 0:
                     pos = (TILE_SIZE * x, TILE_SIZE * y)
@@ -81,18 +82,29 @@ class Game:
     def display_background(self):
         self.win.blit(self.bg, (0, 0))
         self.win.blit(self.bg, (1280, 0))
+    
+    def reset(self):
+        self.visible_sprites.empty()
+        self.active_sprites.empty()
+        self.collision_sprites.empty()
+        self.interactive_sprites.empty()
 
     def setScene(self):
         self.display_background()
+    
+        if self.interactive_sprites.has_won:
+            self.display_text('You win!', (500, 450))
+            self.display_text('Thanks for playing!', (450, 550), font_size=30)
 
-        self.active_sprites.update() 
-        self.visible_sprites.custom_draw(self.active_sprites)
+        elif self.interactive_sprites.has_lost:
+            self.display_text('You lost!', (500, 450))
+            self.display_text('Thanks for playing!', (450, 550), font_size=30)
+        
+        else:
+            self.active_sprites.update() 
+            self.visible_sprites.custom_draw(self.active_sprites)
 
-        self.interactive_sprites.update_collision(self.active_sprites)
+            self.interactive_sprites.update_collision(self.active_sprites)
 
-
-        self.win.blit(self.coin_image, (10, 10))
-        self.display_text(f'x{self.interactive_sprites.coins}', (TILE_SIZE + 16, 23))
-
-        if self.interactive_sprites.has_won and self.level == 1:
-            self.display_text('You win!', (550, 450))
+            self.win.blit(self.coin_image, (10, 10))
+            self.display_text(f'x{self.interactive_sprites.coins}', (TILE_SIZE + 16, 23))
