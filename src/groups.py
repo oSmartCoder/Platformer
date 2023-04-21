@@ -9,7 +9,7 @@ class CameraGroup(pygame.sprite.Group):
         """
         My personal explaination regarding to how this CameraGroup inheritence works.
 
-        If there wasn't a camera that follows the player, the player would be going off the screen, and those values are what is stored directly on the player's attrs.
+        If there wasn't a camera that follows the player, the player would be going off the screen, and those values are what is stored directly in the player's attrs.
         The offset is calculated to then get the values of what would be to the user's screen. Real attrs are stored within their own objects, and the offsets are to get the 'camera' values.
         - For additional clarity, the self.camera_rect attr in this object is to depict the 'real' values on where the game is at.
         """
@@ -56,8 +56,7 @@ class CameraGroup(pygame.sprite.Group):
         if self.offset.y <= 0:
             self.offset.y = 0
         elif self.offset.y >= (end:=TILE_SIZE * TILE_Y - WIN_Y):
-            self.offset.y = end
-        
+            self.offset.y = end        
 
         # Stop player at borders
         if player.rect.left <= 0:
@@ -88,12 +87,16 @@ class InteractiveGroup(pygame.sprite.Group):
 
         self.has_key = False
         self.has_won = False
+        self.has_lost = False
         self.coins = 0
 
     
     def update_collision(self, active_sprites: pygame.sprite.Group):
-
         for player in active_sprites.sprites():
+            if player.rect.bottom >= TILE_SIZE * TILE_Y:
+                # player.reset()
+                self.has_lost = True
+
             for sprite in self.sprites():
                 if sprite.rect.colliderect(player):
                     if sprite.value in self.interactives['silver key']:
@@ -113,6 +116,3 @@ class InteractiveGroup(pygame.sprite.Group):
                         sprite.value = self.interactives['open exit'][l.index(sprite.value)]
 
                 sprite.image = pygame.transform.scale(pygame.image.load(f'Platformer/assets/tiles/{sprite.value}.png'), (TILE_SIZE, TILE_SIZE))
-
-
-        
