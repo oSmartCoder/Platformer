@@ -33,7 +33,6 @@ class Player(pygame.sprite.Sprite):
             'player1': [pygame.K_a, pygame.K_d, pygame.K_w],
             'player2': [pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP]
         }
-            
     
     def import_character_assets(self):
         path = f'Platformer/assets/characters/{self._player}/'
@@ -126,11 +125,6 @@ class Player(pygame.sprite.Sprite):
     def apply_gravity(self):
         self.direction.y += self.gravity
         self.rect.y += self.direction.y
-
-    
-    def check_borders(self):
-        if self.rect.bottom >= TILE_SIZE * TILE_Y:
-            self.reset()
     
     def reset(self):
         self.status = 'idle'    
@@ -150,7 +144,6 @@ class Player(pygame.sprite.Sprite):
         self.horizontal_collision()
         self.apply_gravity()
         self.vertical_collision()
-        self.check_borders()
         self.animate()
         self.animate_particles('run')
         self.animate_particles('jump')
