@@ -11,7 +11,7 @@ class CameraGroup(pygame.sprite.Group):
 
         If there wasn't a camera that follows the player, the player would be going off the screen, and those values are what is stored directly in the player's attrs.
         The offset is calculated to then get the values of what would be to the user's screen. Real attrs are stored within their own objects, and the offsets are to get the 'camera' values.
-        - For additional clarity, the self.camera_rect attr in this object is to depict the 'real' values on where the game is at.
+        - the self.camera_rect attr in this object is to depict the 'real' values on where the game is at.
         """
 
         super().__init__()
