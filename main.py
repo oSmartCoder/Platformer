@@ -6,7 +6,6 @@ from settings import *
 
 # Fix order of particles and objects: Add particles to the active_sprites group along with the Player
 
-
 class Main:
     def __init__(self):
         # Pygame Inits
