@@ -20,7 +20,7 @@ class Player(pygame.sprite.Sprite):
         self.import_character_assets()
         self.collision_sprites = collision_sprites
 
-        self.jump_sound = pygame.mixer.Sound('Platformer/assets/sounds/jump_sound.mp3')
+        self.jump_sound = pygame.mixer.Sound('./assets/sounds/jump_sound.mp3')
         self.jump_sound.set_volume(0.8)
 
         # -- Player Attrs --
@@ -35,14 +35,14 @@ class Player(pygame.sprite.Sprite):
         }
     
     def import_character_assets(self):
-        path = f'Platformer/assets/characters/{self._player}/'
+        path = f'./assets/characters/{self._player}/'
 
         self.animations = {
             'idle': [pygame.transform.scale((image := pygame.image.load(f'{path}idle{x}.png')), (image.get_width() * self.scale_factor, image.get_height() * self.scale_factor)) for x in range(1, 5)],
             'run': [pygame.transform.scale((image := pygame.image.load(f'{path}run{x}.png')), (image.get_width() * self.scale_factor, image.get_height() * self.scale_factor)) for x in range(1, 7)],
             'jump': [pygame.transform.scale((image := pygame.image.load(f'{path}jump{x}.png')), (image.get_width() * self.scale_factor, image.get_height() * self.scale_factor)) for x in range(1, 9)],
-            'run_particles': [pygame.transform.scale((image := pygame.image.load(f'Platformer/assets/characters/run_particles{x}.png')), (image.get_width() * self.scale_factor, image.get_height() * self.scale_factor)) for x in range(1, 7)],
-            'jump_particles': [pygame.transform.scale((image := pygame.image.load(f'Platformer/assets/characters/jump_particles{x}.png')), (image.get_width() * self.scale_factor, image.get_height() * self.scale_factor)) for x in range(1, 6)]
+            'run_particles': [pygame.transform.scale((image := pygame.image.load(f'./assets/characters/run_particles{x}.png')), (image.get_width() * self.scale_factor, image.get_height() * self.scale_factor)) for x in range(1, 7)],
+            'jump_particles': [pygame.transform.scale((image := pygame.image.load(f'./assets/characters/jump_particles{x}.png')), (image.get_width() * self.scale_factor, image.get_height() * self.scale_factor)) for x in range(1, 6)]
         }
     
     def animate(self):
