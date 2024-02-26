@@ -81,8 +81,8 @@ class InteractiveGroup(pygame.sprite.Group):
 
         self.interactives = interactives
 
-        self.coin_sound = pygame.mixer.Sound('Platformer/assets/sounds/coin_received.mp3')
-        self.item_sound = pygame.mixer.Sound('Platformer/assets/sounds/item_received.mp3')
+        self.coin_sound = pygame.mixer.Sound('./assets/sounds/coin_received.mp3')
+        self.item_sound = pygame.mixer.Sound('./assets/sounds/item_received.mp3')
         self.item_sound.set_volume(0.8)
 
         self.has_key = False
@@ -115,4 +115,4 @@ class InteractiveGroup(pygame.sprite.Group):
                         self.has_won = True
                         sprite.value = self.interactives['open exit'][l.index(sprite.value)]
 
-                sprite.image = pygame.transform.scale(pygame.image.load(f'Platformer/assets/tiles/{sprite.value}.png'), (TILE_SIZE, TILE_SIZE))
+                sprite.image = pygame.transform.scale(pygame.image.load(f'./assets/tiles/{sprite.value}.png'), (TILE_SIZE, TILE_SIZE))
