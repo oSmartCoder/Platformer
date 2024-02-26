@@ -10,7 +10,7 @@ from settings import *
 
 class Editor:
 	def __init__(self):
-		self.s = 'Platformer/assets/'
+		self.s = './assets/'
 		
 		# Pygame Inits
 		pygame.init()
