@@ -47,20 +47,20 @@ class Game:
         Renders the text and blits it to surface.
         """
 
-        font = pygame.font.Font('Platformer/assets/fonts/font.ttf', font_size)
+        font = pygame.font.Font('./assets/fonts/font.ttf', font_size)
         image = font.render(text, True, colour)
         self.win.blit(image, pos)
     
     def import_game_assets(self):
-        self.bg = pygame.transform.scale(pygame.image.load('Platformer/assets/backgrounds/bg.png'), (1280, WIN_Y))
-        self.coin_image = pygame.transform.scale(pygame.image.load('Platformer/assets/tiles/%s.png' % self.sprite_filters['interactive']['coin'][0]), (TILE_SIZE, TILE_SIZE))
+        self.bg = pygame.transform.scale(pygame.image.load('./assets/backgrounds/bg.png'), (1280, WIN_Y))
+        self.coin_image = pygame.transform.scale(pygame.image.load('./assets/tiles/%s.png' % self.sprite_filters['interactive']['coin'][0]), (TILE_SIZE, TILE_SIZE))
         
-        self.music = pygame.mixer.Sound('Platformer/assets/sounds/music.mp3')
+        self.music = pygame.mixer.Sound('./assets/sounds/music.mp3')
         self.music.play(loops=-1, fade_ms=2)
 
 
     def load_world(self):
-        with open(f'Platformer/level data/level{self.level}_data', 'rb') as file:
+        with open(f'./level data/level{self.level}_data', 'rb') as file:
             self.world_data = pickle.load(file)
 
         for y, row in enumerate(self.world_data):
