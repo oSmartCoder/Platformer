@@ -13,7 +13,7 @@ class Main:
         pygame.init() 
         pygame.font.init()
         pygame.display.set_caption('Platformer')
-        pygame.display.set_icon(pygame.image.load('Platformer/assets/other/favicon.png'))
+        pygame.display.set_icon(pygame.image.load('./assets/other/favicon.png'))
         self.CLOCK = pygame.time.Clock()
         
 
