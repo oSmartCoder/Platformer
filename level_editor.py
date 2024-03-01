@@ -26,8 +26,6 @@ class Editor:
 		self.win_tile_x, self.win_tile_y = (num / self.tile_size for num in self.size)
 		self.win = pygame.display.set_mode((self.win_x, self.win_y + self.margin_bottom))
 		
-
-		
 		self.bg = pygame.transform.scale(pygame.image.load(f'{self.s}backgrounds/bg.png'), (1280, self.win_y))
 
 		self.tiles = 0
@@ -37,7 +35,6 @@ class Editor:
 		self.load_button = Button(self.win, pygame.image.load(f'{self.s}other/load button.png'), (200, self.win_y + self.margin_bottom - 70))
 		self.up_arrow = Button(self.win, pygame.transform.scale(pygame.image.load(f'{self.s}other/up arrow.png'), (40, 40)), (300, self.win_y + self.margin_bottom - 92))
 		self.down_arrow = Button(self.win, pygame.transform.scale(pygame.image.load(f'{self.s}other/down arrow.png'), (40, 40)), (300, self.win_y + self.margin_bottom - 47))
-
 
 		self.world_data = [[0 for _ in range(TILE_X)] for _ in range(TILE_Y)]
 		self.clicked = False
@@ -98,15 +95,12 @@ class Editor:
 		elif pygame.mouse.get_pressed()[1] and posy <= self.win_y and not self.clicked:
 			self.world_data[y][x] = self.set_value
 
-
 		elif not any(pygame.mouse.get_pressed()):
 			self.clicked = False
-
 
 		for i, key in enumerate(self.inputs):
 			if keys[key] and posy <= self.win_y:
 				self.hotbar_data[i] = self.world_data[y][x]
-		
 
 	def update_world(self):
 		tt_tiles = 0
@@ -186,7 +180,7 @@ class Editor:
 		
 		self.display_margin()
 		self.display_text(f'Level {self.level}', (20, self.win_y + self.margin_bottom / 2 - 6))
-		self.display_text(f'FPS: {80}  TILES: {self.tiles}', (5, 5))
+		self.display_text(f'FPS: {round(self.clock.get_fps())}  TILES: {self.tiles}', (5, 5))
 		self.button_detection()
 		self.update_hotbars()
 
@@ -218,6 +212,7 @@ class Button:
 		if self.rect.collidepoint(pos) and pygame.mouse.get_pressed()[0] and not self.clicked:
 			action = True
 			self.clicked = True
+			
 		if not pygame.mouse.get_pressed()[0]:
 			self.clicked = False
 		
