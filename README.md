@@ -1,8 +1,5 @@
 # 🎮 Platformer 
-2d Platformer Game made in Python. This project was completed for a school assignment.
-
-
-This game is currently still a work in progress, and the files will be constantly updated.
+2d Platformer Game made in Python. This was one of my passion projects from 2023 (this was also completed for a school assignment).
 
 
 ## 👀 Game Preview 
