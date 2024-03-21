@@ -1,5 +1,5 @@
 # 🎮 Platformer 
-2d Platformer Game made in Python. This was one of my passion projects from 2023 (this was also completed for a school assignment).
+2d Platformer Game made in Python. This was one of my passion projects from 2023 and I hope you like it! (this was also completed for a school assignment)
 
 
 ## 👀 Game Preview 
